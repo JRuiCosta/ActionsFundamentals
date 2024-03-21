@@ -1,0 +1,24 @@
+name: Test Docker action
+on:
+  push:
+    branches: 
+      - main
+    paths:
+      - 'hello-world-docker-ation/**'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: run docker
+        id: docker-actions-output
+        uses: ./hello-world-docker-ation
+        with:
+          who-to-greet: '@JRuiCosta'
+
+      - name: output
+        run: echo 'output: ${{ steps.docker-actions-output.outputs.time}}'
